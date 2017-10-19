@@ -11,6 +11,15 @@
                     :subtitle "funciona claro logo"}
       [ui/image {:source (js/require (str "./assets/images/image" (aget item "key") ".jpg"))}]])))
 
+(defn- create-thread-from-ad [ad]
+  {:id (:id ad)
+   :key (:id ad)
+   :name (:name ad)
+   :user {:_id (:id ad)
+          :name (:name ad)
+          :avatar "https://facebook.github.io/react/img/logo_og.png"}
+   :messages []})
+
 (defn back-button []
   [ui/view {:style {:position "absolute"
                     :top 4
@@ -65,4 +74,4 @@
                     :render-item (fn [obj] (tile obj))
                     :num-columns 2}]
      [ui/action-button {:icon "add"
-                        :on-press #(rf/dispatch [:open-thread ad])}]]))
+                        :on-press #(rf/dispatch [:open-thread (create-thread-from-ad ad)])}]]))

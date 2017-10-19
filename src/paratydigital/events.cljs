@@ -10,13 +10,26 @@
 
 (re-frame/reg-event-fx
  :open-thread
- (fn  [cofx [_ ad]]
-   {:dispatch [:set-active-route {:panel :thread-panel :args ad}]}))
+ (fn  [{:keys [db]} [_ thread]]
+   (let [threads (:threads (:db db))
+         new-threads (conj threads thread)]
+     (println (pr-str new-threads))
+     {:db (assoc db :threads new-threads)
+      :dispatch [:set-active-route {:panel :thread-panel :args thread}]})))
 
 (re-frame/reg-event-db
  :initialize-db
  (fn  [_ _]
    db/default-db))
+
+(re-frame/reg-event-db
+ :add-message-to-thread
+ (fn [db [_ thread-id messages]]
+   (let [thread (re-frame/subscribe [:thread-by-id thread-id])
+         new-thread (assoc @thread :messages messages)]
+     ;(assoc db :)
+     )))
+
 
 (re-frame/reg-event-db
  :set-active-route

@@ -7,7 +7,8 @@
 
 (defn thread-fn [obj]
   (let [item (aget obj "item")
-        id (aget obj "id")]
+        id (aget obj "id")
+        last-message (last (aget item "messages"))]
     (r/as-element
      [ui/view {:key id}
       [ui/list-item
@@ -15,7 +16,7 @@
         :on-press #(re-frame/dispatch [:set-active-route
                                        {:panel :thread-panel :args item}])
         :center-element {:primary-text (aget item "name")
-                         :secondary-text (aget (last (aget item "messages")) "message")
+                         :secondary-text (if last-message (aget last-message "text"))
                          }
         :number-of-lines 2}]
       [ui/divider]])))
@@ -33,9 +34,12 @@
         item @thread
         messages (:messages item)
         user (:user item)]
-    (fn []
       (re-frame/dispatch [:set-title (:name item)])
       [ui/view {:style {:flex 1}}
        [chat/gifted-chat {:user {:_id 1}
-                          :on-send (fn [] (js/console.log "teste"))
-                          :messages (map #(assoc % :user user) (reverse messages))}]])))
+                          :on-send #(re-frame/dispatch [:add-message-to-thread
+                                                        (:id args)
+                                                        %])
+                          :messages (map
+                                     #(assoc % :user user)
+                                     (reverse messages))}]]))

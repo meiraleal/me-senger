@@ -18,7 +18,7 @@
                       :name "Mais Vistos"}]
    :categories [{:id 1
                  :key 1
-                 :name "Gastronomia"
+                 :name "Comida"
                  :icon "restaurant"
                  :color :lightGreen700}
                 {:id 2
@@ -39,7 +39,7 @@
                  :color :orange800}
                 {:id 5
                  :key 5
-                 :name "Cidade"
+                 :name "A Cidade"
                  :icon "terrain"
                  :color :blue600}
                 {:id 6
