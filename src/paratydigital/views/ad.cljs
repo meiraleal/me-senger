@@ -64,4 +64,5 @@
      [ui/flat-list {:data tiles
                     :render-item (fn [obj] (tile obj))
                     :num-columns 2}]
-     [ui/action-button {:icon "send"}]]))
+     [ui/action-button {:icon "add"
+                        :on-press #(rf/dispatch [:open-thread ad])}]]))

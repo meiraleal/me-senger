@@ -1,26 +1,25 @@
 {
-    "name": "paratydigital",
-    "interface": "reagent6",
-    "envRoots": {
-        "dev": "env/dev",
-        "prod": "env/prod"
+  "name": "paratydigital",
+  "interface": "reagent6",
+  "envRoots": {
+    "dev": "env/dev",
+    "prod": "env/prod"
+  },
+  "modules": [
+    "react-native-material-ui",
+    "react-native-gifted-chat"
+  ],
+  "imageDirs": [
+    "assets/images"
+  ],
+  "platforms": {
+    "ios": {
+      "host": "localhost",
+      "modules": []
     },
-    "modules": [
-        "react-native-material-ui",
-        "react-native-gifted-chat"
-    ],
-    "imageDirs": [
-        "assets/images"
-    ],
-    "platforms": {
-        "ios": {
-            "host": "localhost",
-            "modules": []
-        },
-        "android": {
-            "host": "10.0.3.2",
-            "modules": []
-        }
-    },
-    "autoRequire": false
+    "android": {
+      "host": "10.0.3.2",
+      "modules": []
+    }
+  }
 }

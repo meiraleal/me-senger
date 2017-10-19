@@ -8,6 +8,11 @@
  (fn  [cofx [_ a]]
    {:dispatch [:initialize-db]}))
 
+(re-frame/reg-event-fx
+ :open-thread
+ (fn  [cofx [_ ad]]
+   {:dispatch [:set-active-route {:panel :thread-panel :args ad}]}))
+
 (re-frame/reg-event-db
  :initialize-db
  (fn  [_ _]
@@ -28,7 +33,6 @@
  (fn [db [_ status]]
    (let [new-history (into [] (drop-last (:history db)))
          active-route (last new-history)]
-     (println (pr-str (:history db)))
      (assoc db
             :back-button (not (= 1 (count new-history)))
             :active-route active-route
