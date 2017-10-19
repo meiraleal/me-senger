@@ -4,9 +4,9 @@
             :license {:name "Eclipse Public License"
                       :url  "http://www.eclipse.org/legal/epl-v10.html"}
             :dependencies [[org.clojure/clojure "1.9.0-alpha16"]
-                           [org.clojure/clojurescript "1.9.542"]
+                           [org.clojure/clojurescript "1.9.946"]
                            [reagent "0.7.0" :exclusions [cljsjs/react cljsjs/react-dom cljsjs/react-dom-server cljsjs/create-react-class]]
-[re-frame "0.9.2"]]
+[re-frame "0.10.2"]]
             :plugins [[lein-cljsbuild "1.1.4"]
                       [lein-figwheel "0.5.14"]]
             :clean-targets ["target/" "index.ios.js" "index.android.js" #_($PLATFORM_CLEAN$)]
@@ -17,7 +17,7 @@
                                    ["do" "clean"
                                     ["with-profile" "advanced" "cljsbuild" "once"]]}
             :profiles {:dev {:dependencies [[figwheel-sidecar "0.5.14"]
-                                            [com.cemerick/piggieback "0.2.1"]]
+                                            [com.cemerick/piggieback "0.2.2"]]
                              :source-paths ["src" "env/dev"]
                              :cljsbuild    {:builds [
                                                      {:id           "ios"
