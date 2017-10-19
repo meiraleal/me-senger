@@ -3,7 +3,6 @@
             [re-frame.core :as re-frame]
             [paratydigital.events]
             [paratydigital.subs]
-            [paratydigital.routes :as routes]
             [paratydigital.views :as views]
             [paratydigital.config :as config]
             [material-ui.core :as ui]))
