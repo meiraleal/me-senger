@@ -1,0 +1,3 @@
+rootProject.name = 'paratydigital'
+
+include ':app'
