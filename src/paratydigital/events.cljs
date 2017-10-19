@@ -1,35 +1,51 @@
 (ns paratydigital.events
-  (:require
-   [re-frame.core :refer [reg-event-db after]]
-   [clojure.spec.alpha :as s]
-   [paratydigital.db :as db :refer [app-db]]))
+  (:require [re-frame.core :as re-frame]
+            [paratydigital.db :as db]
+            [paratydigital.config :as config]))
 
-;; -- Interceptors ------------------------------------------------------------
-;;
-;; See https://github.com/Day8/re-frame/blob/master/docs/Interceptors.md
-;;
-(defn check-and-throw
-  "Throw an exception if db doesn't have a valid spec."
-  [spec db [event]]
-  (when-not (s/valid? spec db)
-    (let [explain-data (s/explain-data spec db)]
-      (throw (ex-info (str "Spec check after " event " failed: " explain-data) explain-data)))))
+(re-frame/reg-event-fx
+ :initialize-app
+ (fn  [cofx [_ a]]
+   {:dispatch [:initialize-db]}))
 
-(def validate-spec
-  (if goog.DEBUG
-    (after (partial check-and-throw ::db/app-db))
-    []))
-
-;; -- Handlers --------------------------------------------------------------
-
-(reg-event-db
+(re-frame/reg-event-db
  :initialize-db
- validate-spec
- (fn [_ _]
-   app-db))
+ (fn  [_ _]
+   db/default-db))
 
-(reg-event-db
- :set-greeting
- validate-spec
- (fn [db [_ value]]
-   (assoc db :greeting value)))
+(re-frame/reg-event-db
+ :set-active-route
+ (fn [db [_ route]]
+   (let [history (into []
+                       (conj (:history db) route))]
+     (assoc db
+            :back-button (not (= 1 (count history)))
+            :history history
+            :active-route route))))
+
+(re-frame/reg-event-db
+ :back-history
+ (fn [db [_ status]]
+   (let [new-history (into [] (drop-last (:history db)))
+         active-route (last new-history)]
+     (println (pr-str (:history db)))
+     (assoc db
+            :back-button (not (= 1 (count new-history)))
+            :active-route active-route
+            :history new-history))))
+
+(re-frame/reg-event-db
+ :set-title
+ (fn [db [_ title]]
+   (assoc db :title title)))
+
+(re-frame/reg-event-db
+ :back-button
+ (fn [db [_ status]]
+   (assoc db :back-button status)))
+
+(re-frame/reg-event-db
+ :get-thread
+ (fn [db [_ thread]]
+   (let [threads (:threads db)]
+     (assoc db :threads threads))))

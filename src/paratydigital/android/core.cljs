@@ -1,33 +1,36 @@
 (ns paratydigital.android.core
-  (:require [reagent.core :as r :refer [atom]]
-            [re-frame.core :refer [subscribe dispatch dispatch-sync]]
+  (:require [reagent.core :as reagent]
+            [re-frame.core :as re-frame]
             [paratydigital.events]
-            [paratydigital.subs]))
+            [paratydigital.subs]
+            [paratydigital.routes :as routes]
+            [paratydigital.views :as views]
+            [paratydigital.config :as config]
+            [material-ui.core :as ui]))
 
 (def ReactNative (js/require "react-native"))
 
 (def app-registry (.-AppRegistry ReactNative))
-(def text (r/adapt-react-class (.-Text ReactNative)))
-(def view (r/adapt-react-class (.-View ReactNative)))
-(def image (r/adapt-react-class (.-Image ReactNative)))
-(def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
+(def back-handler (.-BackHandler ReactNative))
 
-(def logo-img (js/require "./images/cljs.png"))
+(defn register-back-handler [history]
+  (.addEventListener back-handler
+                     "hardwareBackPress"
+                     (fn []
+                       (re-frame/dispatch [:back-history])
+                       true)))
 
-(defn alert [title]
-      (.alert (.-Alert ReactNative) title))
+(defn dev-setup []
+  (when config/debug?
+    (re-frame/clear-subscription-cache!)
+    (enable-console-print!)
+    (println "dev mode")))
 
 (defn app-root []
-  (let [greeting (subscribe [:get-greeting])]
-    (fn []
-      [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
-       [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @greeting]
-       [image {:source logo-img
-               :style  {:width 80 :height 80 :margin-bottom 30}}]
-       [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
-                             :on-press #(alert "HELLO!")}
-        [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]])))
+  (reagent/create-class {:component-did-mount #(register-back-handler false)
+                         :reagent-render (fn [] [views/main-panel])}))
 
-(defn init []
-      (dispatch-sync [:initialize-db])
-      (.registerComponent app-registry "paratydigital" #(r/reactify-component app-root)))
+(defn ^:export init []
+  (dev-setup)
+  (re-frame/dispatch-sync [:initialize-app])
+  (.registerComponent app-registry "paratydigital" #(reagent/reactify-component app-root)))
