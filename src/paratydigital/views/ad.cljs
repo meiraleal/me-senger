@@ -18,7 +18,9 @@
    :user {:_id (:id ad)
           :name (:name ad)
           :avatar "https://facebook.github.io/react/img/logo_og.png"}
-   :messages []})
+   :messages [{:_id 1
+               :text "Primeira mensagem dessa porcaria!"
+               :createdAt (js/Date.)}]})
 
 (defn back-button []
   [ui/view {:style {:position "absolute"

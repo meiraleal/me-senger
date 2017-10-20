@@ -13,7 +13,6 @@
  (fn  [{:keys [db]} [_ thread]]
    (let [threads (:threads (:db db))
          new-threads (conj threads thread)]
-     (println (pr-str new-threads))
      {:db (assoc db :threads new-threads)
       :dispatch [:set-active-route {:panel :thread-panel :args thread}]})))
 
