@@ -39,7 +39,7 @@
        [ui/view {:style {:padding 5}}
         [ui/text {:style {:font-size 13
                           :color "#333"}}
-         (str (aget item "key") ". " (aget item "name"))]
+         (str (aget item "id") ". " (aget item "name"))]
         [ui/text {:style {:font-size 11
                           :color "#666"}}
          (aget item "headline")]]]])))

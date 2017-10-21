@@ -36,9 +36,10 @@
         user (re-frame/subscribe [:current-user])]
     (re-frame/dispatch [:set-title (:name item)])
     [ui/view {:style {:flex 1}}
-     [chat/gifted-chat {:user {:_id 1}
+     [chat/gifted-chat {:user @user
                         :on-send #(re-frame/dispatch [:add-message-to-thread
-                                                      (:id args) %])
+                                                      (:id args)
+                                                      %])
                         :messages (map
                                    #(assoc % :user @user)
                                    (reverse messages))}]]))

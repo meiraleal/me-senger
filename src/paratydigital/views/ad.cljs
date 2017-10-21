@@ -9,7 +9,7 @@
     (r/as-element
      [ui/grid-tile {:title (aget item "name")
                     :subtitle "funciona claro logo"}
-      [ui/image {:source (js/require (str "./assets/images/image" (aget item "key") ".jpg"))}]])))
+      [ui/image {:source (js/require (str "./assets/images/image" (aget item "id") ".jpg"))}]])))
 
 (defn- create-thread-from-ad [ad user]
   {:id (:id ad)

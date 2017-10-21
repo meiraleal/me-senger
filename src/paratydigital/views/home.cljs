@@ -7,7 +7,7 @@
 (defn category-btn [obj]
   (let [item (aget obj "item")]
     (r/as-element
-     [ui/button {:key (aget item "key")
+     [ui/button {:key (aget item "id")
                  :icon (aget item "icon")
                  :text (aget item "name")
                  :on-press #(rf/dispatch [:set-active-route {:panel :category-panel
@@ -27,7 +27,7 @@
                :on-press #(rf/dispatch [:set-active-route {:panel :ad-panel
                                                            :args item}])}
       [ui/view
-       [ui/image {:source (js/require (str "./assets/images/image" (aget item "key") ".jpg"))
+       [ui/image {:source (js/require (str "./assets/images/image" (aget item "id") ".jpg"))
                   :style {:height 60
                           :width "100%"}}]]
       [ui/view {:style {:padding 5}}

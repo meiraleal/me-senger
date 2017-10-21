@@ -23,11 +23,14 @@
 
 (re-frame/reg-event-db
  :add-message-to-thread
- (fn [db [_ thread-id messages]]
-   (let [thread (re-frame/subscribe [:thread-by-id thread-id])
-         new-thread (assoc @thread :messages messages)]
-     ;(assoc db :)
-     )))
+ (fn [db [_ thread-id message]]
+   (let [thread @(re-frame/subscribe [:thread-by-id thread-id])
+         message (js->clj (first message) :keywordize-key true)
+         messages (conj (:messages thread) message)
+         new-thread (assoc thread :messages messages)
+         threads  (assoc @(re-frame/subscribe [:threads]) thread-id new-thread)]
+     (println (pr-str message))
+     (assoc db :threads threads))))
 
 
 (re-frame/reg-event-db

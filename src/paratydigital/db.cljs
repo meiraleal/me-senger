@@ -11,81 +11,67 @@
    :user {:_id 22222
           :name "Alan Leal"
           :avatar "https://facebook.github.io/react/img/logo_og.png"}
-   :home-highlights [{:key 1
+   :home-highlights [{:key 0
                       :name "Destaque"}
-                     {:key 2
+                     {:key 1
                       :name "Bombando Agora"}
-                     {:key 3
+                     {:key 2
                       :name "Novidade"}
-                     {:key 4
+                     {:key 3
                       :name "Mais Vistos"}]
-   :categories [{:id 1
-                 :key 1
+   :categories [{:id 0
                  :name "Comida"
                  :icon "restaurant"
                  :color :lightGreen700}
-                {:id 2
-                 :key 2
+                {:id 1
                  :name "Hospedagem"
                  :icon "hotel"
                  :color :lightGreen700}
-                {:id 3
-                 :key 3
-                 :name
-                 "Passeios"
+                {:id 2
+                 :name "Passeios"
                  :icon "beach-access"
                  :color :red400}
-                {:id 4
-                 :key 4
+                {:id 3
                  :name "Eventos"
                  :icon "local-bar"
                  :color :orange800}
-                {:id 5
-                 :key 5
+                {:id 4
                  :name "A Cidade"
                  :icon "terrain"
                  :color :blue600}
-                {:id 6
-                 :key 6
+                {:id 5
                  :name "Anuncios e Vagas"
                  :icon "directions-car"
                  :color :blue500}]
 
-   :ads [{:id 1
-          :key 1
+   :ads [{:id 0
           :name "Lojas de Paraty"
           :headline "Anunciam aqui"
-          :category 1}
-         {:id 2
-          :key 2
+          :category 0}
+         {:id 1
           :name "Che Lagarto"
           :headline "O melhor hostel"
-          :category 2}
-         {:id 3
-          :key 3
+          :category 1}
+         {:id 2
           :name "Antiquaria Restaurante"
           :headline "paraty do passado"
           :category 1}
-         {:id 4
-          :key 4
+         {:id 3
           :name "Cafe no bule"
           :headline "melhor que o do ratinho"
           :category 2}
-         {:id 5
-          :key 5
+         {:id 4
           :name "Chapelaria chapeleu"
           :headline "Melhor que o zebeleu"
           :category 1}
-         {:id 6
-          :key 6
+         {:id 5
           :name "Hortifruti Paraty"
           :headline "e Para todo mundo"
           :category 2}]
 
    :threads
    [
-    {:id 1
-     :key 1
+    {:id 0
      :name "Guia de Paraty"
      :messages [{:_id 1
                  :text "Bom dia!"
