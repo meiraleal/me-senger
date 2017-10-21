@@ -38,15 +38,20 @@
 (defn thread-panel [args]
   (let [id (:id args)
         thread @(re-frame/subscribe [:thread-by-id id])
-        messages (:messages thread)
-        user (re-frame/subscribe [:current-user])
-        ad @(re-frame/subscribe [:ad-by-id (:ad-id thread)])]
+        ad @(re-frame/subscribe [:ad-by-id (:ad-id thread)])
+        messages (into []
+                       (map
+                        (fn [msg]
+                          (if (not (:user msg))
+                            (assoc msg :user (ad-as-user ad))
+                            msg))
+                        (reverse (:messages thread))))
+        user @(re-frame/subscribe [:current-user])]
     (re-frame/dispatch [:set-title (:name thread)])
+    (println (pr-str messages))
     [ui/view {:style {:flex 1}}
-     [chat/gifted-chat {:user @user
+     [chat/gifted-chat {:user user
                         :on-send #(re-frame/dispatch [:add-message-to-thread
                                                       (:id args)
                                                       %])
-                        :messages (map
-                                   #(assoc % :user (ad-as-user ad))
-                                   (reverse messages))}]]))
+                        :messages messages}]]))

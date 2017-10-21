@@ -27,11 +27,10 @@
  :add-message-to-thread
  (fn [db [_ thread-id message]]
    (let [thread @(re-frame/subscribe [:thread-by-id thread-id])
-         message (js->clj (first message) :keywordize-key true)
+         message (js->clj (first message) :keywordize-keys true)
          messages (conj (:messages thread) message)
          new-thread (assoc thread :messages messages)
          threads  (assoc @(re-frame/subscribe [:threads]) thread-id new-thread)]
-     (println (pr-str message))
      (assoc db :threads threads))))
 
 
