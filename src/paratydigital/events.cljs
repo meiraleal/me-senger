@@ -11,10 +11,12 @@
 (re-frame/reg-event-fx
  :open-thread
  (fn  [{:keys [db]} [_ thread]]
-   (let [threads (:threads  db)
+   (let [threads (:threads db)
          new-threads (conj threads thread)]
      {:db (assoc db :threads new-threads)
-      :dispatch [:set-active-route {:panel :thread-panel :args {:id (:id thread)}}]})))
+      :dispatch [:set-active-route
+                 {:panel :thread-panel
+                  :args {:id (:id thread)}}]})))
 
 (re-frame/reg-event-db
  :initialize-db

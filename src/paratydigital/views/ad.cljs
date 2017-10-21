@@ -13,8 +13,7 @@
 
 (defn- create-thread-from-ad [ad user]
   {:id (:id ad)
-   :key (:id ad)
-   :name (:name ad)
+   :ad-id (:id ad)
    :user user
    :messages [{:_id 1
                :text "Primeira mensagem!"

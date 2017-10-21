@@ -73,6 +73,7 @@
    [
     {:id 0
      :name "Guia de Paraty"
+     :ad-id 0
      :messages [{:_id 1
                  :text "Bom dia!"
                  :createdAt (js/Date.)}
