@@ -84,8 +84,8 @@
     {:id 1
      :key 1
      :name "Guia de Paraty"
-     :user {:_id 1
-            :name "Guia de Paraty"
+     :user {:_id 2
+            :name "Alan Leal"
             :avatar "https://facebook.github.io/react/img/logo_og.png"}
      :messages [{:_id 1
                  :text "Bom dia!"

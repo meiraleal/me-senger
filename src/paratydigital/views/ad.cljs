@@ -36,7 +36,7 @@
 
 
 (defn ad-panel [args]
-  (let [id (aget args "id")
+  (let [id (:id args)
         tiles (rf/subscribe [:categories])
         ad @(rf/subscribe [:ad-by-id id])
         image-url (str "./assets/images/image" id ".jpg")]

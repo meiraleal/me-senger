@@ -10,15 +10,16 @@
    [paratydigital.views.threads :as vm]
    [paratydigital.views.user :as vu]))
 
-(defn- panels [panel-name args]
-  (case panel-name
-    :home-panel [vh/home-panel]
-    :category-panel [vc/category-panel args]
-    :ad-panel [va/ad-panel args]
-    :threads-panel [vm/threads-panel]
-    :thread-panel [vm/thread-panel args]
-    :user-panel [vu/user-panel]
-    [vh/home-panel]))
+(defn panels [panel-name args]
+  (let [args (js->clj args :keywordize-keys true)]
+    (case panel-name
+      :home-panel [vh/home-panel]
+      :category-panel [vc/category-panel args]
+      :ad-panel [va/ad-panel args]
+      :threads-panel [vm/threads-panel]
+      :thread-panel [vm/thread-panel args]
+      :user-panel [vu/user-panel]
+      [vh/home-panel])))
 
 (defn content [route]
   [ui/scroll-view {:style {:flex 1}

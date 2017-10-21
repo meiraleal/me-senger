@@ -42,12 +42,10 @@
          (str (aget item "key") ". " (aget item "name"))]
         [ui/text {:style {:font-size 11
                           :color "#666"}}
-         (aget item "headline")]]]
-                                        ;:avatar (str "img/image" (:id obj) ".jpg")}
-      ])))
+         (aget item "headline")]]]])))
 
 (defn category-panel [args]
-  (let [id (aget args "id")
+  (let [id (:id args)
         category (rf/subscribe [:category-by-id id])
         ads (rf/subscribe [:ads-by-category id])]
     (fn []

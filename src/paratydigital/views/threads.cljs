@@ -29,17 +29,18 @@
                      :render-item (fn [obj] (thread-fn obj))}])))
 
 (defn thread-panel [args]
-  (let [id (aget args "id")
+  (let [id (:id args)
         thread (re-frame/subscribe [:thread-by-id id])
         item @thread
         messages (:messages item)
         user (:user item)]
-      (re-frame/dispatch [:set-title (:name item)])
-      [ui/view {:style {:flex 1}}
-       [chat/gifted-chat {:user {:_id 1}
-                          :on-send #(re-frame/dispatch [:add-message-to-thread
-                                                        (:id args)
-                                                        %])
-                          :messages (map
-                                     #(assoc % :user user)
-                                     (reverse messages))}]]))
+    (println args)
+    (re-frame/dispatch [:set-title (:name item)])
+    [ui/view {:style {:flex 1}}
+     [chat/gifted-chat {:user {:_id 1}
+                        :on-send #(re-frame/dispatch [:add-message-to-thread
+                                                      (:id args)
+                                                      %])
+                        :messages (map
+                                   #(assoc % :user user)
+                                   (reverse messages))}]]))
