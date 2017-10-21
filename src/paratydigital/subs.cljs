@@ -8,6 +8,11 @@
    (:title db)))
 
 (re-frame/reg-sub
+ :current-user
+ (fn [db]
+   (:user db)))
+
+(re-frame/reg-sub
  :active-route
  (fn [db _]
    (:active-route db)))

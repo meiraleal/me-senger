@@ -11,15 +11,13 @@
                     :subtitle "funciona claro logo"}
       [ui/image {:source (js/require (str "./assets/images/image" (aget item "key") ".jpg"))}]])))
 
-(defn- create-thread-from-ad [ad]
+(defn- create-thread-from-ad [ad user]
   {:id (:id ad)
    :key (:id ad)
    :name (:name ad)
-   :user {:_id (:id ad)
-          :name (:name ad)
-          :avatar "https://facebook.github.io/react/img/logo_og.png"}
+   :user user
    :messages [{:_id 1
-               :text "Primeira mensagem dessa porcaria!"
+               :text "Primeira mensagem!"
                :createdAt (js/Date.)}]})
 
 (defn back-button []
@@ -39,6 +37,7 @@
   (let [id (:id args)
         tiles (rf/subscribe [:categories])
         ad @(rf/subscribe [:ad-by-id id])
+        user @(rf/subscribe [:current-user])
         image-url (str "./assets/images/image" id ".jpg")]
     (rf/dispatch [:set-title nil])
     [ui/view {:style {:position "absolute"
@@ -76,4 +75,4 @@
                     :render-item (fn [obj] (tile obj))
                     :num-columns 2}]
      [ui/action-button {:icon "add"
-                        :on-press #(rf/dispatch [:open-thread (create-thread-from-ad ad)])}]]))
+                        :on-press #(rf/dispatch [:open-thread (create-thread-from-ad ad user)])}]]))
