@@ -16,7 +16,7 @@
      {:db (assoc db :threads new-threads)
       :dispatch [:set-active-route
                  {:panel :thread-panel
-                  :args {:id (:id thread)}}]})))
+                  :args {:key (:key thread)}}]})))
 
 (re-frame/reg-event-db
  :initialize-db
@@ -25,12 +25,12 @@
 
 (re-frame/reg-event-db
  :add-message-to-thread
- (fn [db [_ thread-id message]]
-   (let [thread @(re-frame/subscribe [:thread-by-id thread-id])
+ (fn [db [_ thread-key message]]
+   (let [thread @(re-frame/subscribe [:thread-by-key thread-key])
          message (js->clj (first message) :keywordize-keys true)
          messages (conj (:messages thread) message)
          new-thread (assoc thread :messages messages)
-         threads  (assoc @(re-frame/subscribe [:threads]) thread-id new-thread)]
+         threads  (assoc @(re-frame/subscribe [:threads]) thread-key new-thread)]
      (assoc db :threads threads))))
 
 

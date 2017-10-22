@@ -23,11 +23,11 @@
    (:categories db)))
 
 (re-frame/reg-sub
- :category-by-id
+ :category-by-key
  (fn [db [_ id]]
    (first
     (filter
-     #(= (int id) (:id %))
+     #(= (int id) (:key %))
      (:categories db)))))
 
 (re-frame/reg-sub
@@ -48,11 +48,11 @@
      (:ads db))))
 
 (re-frame/reg-sub
- :ad-by-id
+ :ad-by-key
  (fn [db [_ id]]
    (first
     (filter
-     #(= (int id) (:id %))
+     #(= (int id) (:key %))
      (:ads db)))))
 
 (re-frame/reg-sub
@@ -61,11 +61,11 @@
    (:threads db)))
 
 (re-frame/reg-sub
- :thread-by-id
+ :thread-by-key
  (fn [db [_ id]]
    (first
     (filter
-     #(= (int id) (:id %))
+     #(= (int id) (:key %))
     (:threads db)))))
 
 (re-frame/reg-sub

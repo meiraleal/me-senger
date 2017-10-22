@@ -19,61 +19,61 @@
                       :name "Novidade"}
                      {:key 3
                       :name "Mais Vistos"}]
-   :categories [{:id 0
+   :categories [{:key 0
                  :name "Comida"
                  :icon "restaurant"
                  :color :lightGreen700}
-                {:id 1
+                {:key 1
                  :name "Hospedagem"
                  :icon "hotel"
                  :color :lightGreen700}
-                {:id 2
+                {:key 2
                  :name "Passeios"
                  :icon "beach-access"
                  :color :red400}
-                {:id 3
+                {:key 3
                  :name "Eventos"
                  :icon "local-bar"
                  :color :orange800}
-                {:id 4
+                {:key 4
                  :name "A Cidade"
                  :icon "terrain"
                  :color :blue600}
-                {:id 5
+                {:key 5
                  :name "Anuncios e Vagas"
                  :icon "directions-car"
                  :color :blue500}]
 
-   :ads [{:id 0
+   :ads [{:key 0
           :name "Lojas de Paraty"
           :headline "Anunciam aqui"
           :category 0}
-         {:id 1
+         {:key 1
           :name "Che Lagarto"
           :headline "O melhor hostel"
           :category 1}
-         {:id 2
+         {:key 2
           :name "Antiquaria Restaurante"
           :headline "paraty do passado"
           :category 1}
-         {:id 3
+         {:key 3
           :name "Cafe no bule"
           :headline "melhor que o do ratinho"
           :category 2}
-         {:id 4
+         {:key 4
           :name "Chapelaria chapeleu"
           :headline "Melhor que o zebeleu"
           :category 1}
-         {:id 5
+         {:key 5
           :name "Hortifruti Paraty"
           :headline "e Para todo mundo"
           :category 2}]
 
    :threads
    [
-    {:id 0
+    {:key 0
      :name "Guia de Paraty"
-     :ad-id 0
+     :ad-key 0
      :messages [{:_id 1
                  :text "Bom dia!"
                  :createdAt (js/Date.)}

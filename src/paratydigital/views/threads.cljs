@@ -8,9 +8,9 @@
 (defn thread-fn [obj]
   (let [
         item (js->clj (aget obj "item") :keywordize-keys true)
-        id (:id item)
+        id (:key item)
         last-message (last (:messages item))
-        ad @(re-frame/subscribe [:ad-by-id (:ad-id item)])]
+        ad @(re-frame/subscribe [:ad-by-key (:ad-key item)])]
     (r/as-element
      [ui/view {:key id}
       [ui/list-item
@@ -31,14 +31,14 @@
                      :render-item (fn [obj] (thread-fn obj))}])))
 
 (defn- ad-as-user [ad]
-  {:_id (:id ad)
+  {:_id (:key ad)
    :name (:name ad)
    :avatar "https://facebook.github.io/react/img/logo_og.png"})
 
 (defn thread-panel [args]
-  (let [id (:id args)
-        thread @(re-frame/subscribe [:thread-by-id id])
-        ad @(re-frame/subscribe [:ad-by-id (:ad-id thread)])
+  (let [id (:key args)
+        thread @(re-frame/subscribe [:thread-by-key id])
+        ad @(re-frame/subscribe [:ad-by-key (:ad-key thread)])
         messages (into []
                        (map
                         (fn [msg]
@@ -48,10 +48,9 @@
                         (reverse (:messages thread))))
         user @(re-frame/subscribe [:current-user])]
     (re-frame/dispatch [:set-title (:name thread)])
-    (println (pr-str messages))
     [ui/view {:style {:flex 1}}
      [chat/gifted-chat {:user user
                         :on-send #(re-frame/dispatch [:add-message-to-thread
-                                                      (:id args)
+                                                      (:key args)
                                                       %])
                         :messages messages}]]))

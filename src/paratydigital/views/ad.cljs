@@ -5,15 +5,15 @@
    [material-ui.core :as ui]))
 
 (defn tile [obj]
-  (let [item (aget obj "item")]
+  (let [item (js->clj (aget obj "item") :keywordize-keys true)]
     (r/as-element
-     [ui/grid-tile {:title (aget item "name")
-                    :subtitle "funciona claro logo"}
-      [ui/image {:source (js/require (str "./assets/images/image" (aget item "id") ".jpg"))}]])))
+     [ui/grid-tile {:title (:name item)
+                    :subtitle "Categoria"}
+      [ui/image {:source (js/require (str "./assets/images/image" (:key item) ".jpg"))}]])))
 
 (defn- create-thread-from-ad [ad user]
-  {:id (:id ad)
-   :ad-id (:id ad)
+  {:key (:key ad)
+   :ad-key (:key ad)
    :user user
    :messages [{:_id 1
                :text "Primeira mensagem!"
@@ -33,9 +33,9 @@
 
 
 (defn ad-panel [args]
-  (let [id (:id args)
+  (let [id (:key args)
         tiles (rf/subscribe [:categories])
-        ad @(rf/subscribe [:ad-by-id id])
+        ad @(rf/subscribe [:ad-by-key id])
         user @(rf/subscribe [:current-user])
         image-url (str "./assets/images/image" id ".jpg")]
     (rf/dispatch [:set-title nil])

@@ -20,13 +20,12 @@
                  "Cultura"])
 
 (defn ad-item [obj]
-  (let [item (aget obj "item")
-        id (aget item "id")
-        image-url (str "./assets/images/image" id ".jpg")]
+  (let [item (js->clj (aget obj "item") :keywordize-keys true)
+        key (:key item)
+        image-url (str "./assets/images/image" key ".jpg")]
     (r/as-element
      [ui/card {:style {:container {:height 60
-                                   :margin 5
-                                   }}
+                                   :margin 5}}
                :on-press #(rf/dispatch [:set-active-route {:panel :ad-panel
                                                            :args item}])}
       [ui/view {:style {:flex 1 :flex-direction "row"}}
@@ -39,15 +38,15 @@
        [ui/view {:style {:padding 5}}
         [ui/text {:style {:font-size 13
                           :color "#333"}}
-         (str (aget item "id") ". " (aget item "name"))]
+         (str key ". " (:name item))]
         [ui/text {:style {:font-size 11
                           :color "#666"}}
-         (aget item "headline")]]]])))
+         (:headline item)]]]])))
 
 (defn category-panel [args]
-  (let [id (:id args)
-        category (rf/subscribe [:category-by-id id])
-        ads (rf/subscribe [:ads-by-category id])]
+  (let [key (:key args)
+        category (rf/subscribe [:category-by-key key])
+        ads (rf/subscribe [:ads-by-category key])]
     (fn []
       (rf/dispatch [:set-title (:name @category)])
       [ui/view
