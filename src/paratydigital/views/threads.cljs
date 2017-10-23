@@ -10,7 +10,7 @@
         item (js->clj (aget obj "item") :keywordize-keys true)
         id (:key item)
         last-message (last (:messages item))
-        ad @(re-frame/subscribe [:ad-by-key (:ad-key item)])]
+        ad @(re-frame/subscribe [:get-one :ads (:ad-key item)])]
     (r/as-element
      [ui/view {:key id}
       [ui/list-item
@@ -25,10 +25,10 @@
 
 (defn threads-panel []
   (let [threads (re-frame/subscribe [:get-all :threads])]
-    (fn []
-      (re-frame/dispatch [:set-title "Threads"])
-      [ui/flat-list {:data @threads
-                     :render-item (fn [obj] (thread-fn obj))}])))
+    (println (pr-str @threads))
+    (re-frame/dispatch [:set-title "Threads"])
+    [ui/flat-list {:data @threads
+                   :render-item #(thread-fn %)}]))
 
 (defn- ad-as-user [ad]
   {:_id (:key ad)
@@ -37,8 +37,8 @@
 
 (defn thread-panel [args]
   (let [id (:key args)
-        thread @(re-frame/subscribe [:thread-by-key id])
-        ad @(re-frame/subscribe [:ad-by-key (:ad-key thread)])
+        thread @(re-frame/subscribe [:get-one :threads id])
+        ad @(re-frame/subscribe [:get-one :ads (:ad-key thread)])
         messages (into []
                        (map
                         (fn [msg]

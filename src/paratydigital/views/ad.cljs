@@ -35,7 +35,7 @@
 (defn ad-panel [args]
   (let [id (:key args)
         tiles (rf/subscribe [:get-all :categories])
-        ad @(rf/subscribe [:ad-by-key id])
+        ad @(rf/subscribe [:get-one :ads id])
         user @(rf/subscribe [:current-user])
         image-url (str "./assets/images/image" id ".jpg")]
     (rf/dispatch [:set-title nil])

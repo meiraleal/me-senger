@@ -26,7 +26,7 @@
 (re-frame/reg-event-db
  :add-message-to-thread
  (fn [db [_ thread-key message]]
-   (let [thread @(re-frame/subscribe [:thread-by-key thread-key])
+   (let [thread @(re-frame/subscribe [:get-one :threads thread-key])
          message (js->clj (first message) :keywordize-keys true)
          messages (conj (:messages thread) message)
          new-thread (assoc thread :messages messages)

@@ -45,7 +45,7 @@
 
 (defn category-panel [args]
   (let [key (:key args)
-        category (rf/subscribe [:category-by-key key])
+        category (rf/subscribe [:get-one :categories key])
         ads (rf/subscribe [:ads-by-category key])]
     (fn []
       (rf/dispatch [:set-title (:name @category)])

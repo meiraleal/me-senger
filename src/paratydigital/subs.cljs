@@ -24,8 +24,18 @@
      (into []
            (map
             (fn [[key value]]
-              (conj {:key key :id key} value))
+              (conj {:key key
+                     :id key}
+                    value))
             source)))))
+
+(re-frame/reg-sub
+ :get-one
+ (fn [db [_ coll id]]
+   (let [source (db coll)]
+     (conj {:id id
+            :key id}
+           (source id)))))
 
 (re-frame/reg-sub
  :ads-by-category
@@ -38,24 +48,3 @@
  :back-button
  (fn [db _]
    (:back-button db)))
-
-(re-frame/reg-sub
- :ad-by-key
- (fn [db [_ id]]
-   (conj {:id id
-          :key id}
-         ((:ads db) id))))
-
-(re-frame/reg-sub
- :thread-by-key
- (fn [db [_ id]]
-   (conj {:id id
-          :key id}
-         ((:threads db) id))))
-
-(re-frame/reg-sub
- :category-by-key
- (fn [db [_ id]]
-   (conj {:id id
-          :key id}
-         ((:categories db) id))))
