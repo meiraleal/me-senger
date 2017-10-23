@@ -25,7 +25,6 @@
 
 (defn threads-panel []
   (let [threads (re-frame/subscribe [:get-all :threads])]
-    (println (pr-str @threads))
     (re-frame/dispatch [:set-title "Threads"])
     [ui/flat-list {:data @threads
                    :render-item #(thread-fn %)}]))

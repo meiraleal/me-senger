@@ -12,7 +12,8 @@
  :open-thread
  (fn  [{:keys [db]} [_ thread]]
    (let [threads (:threads db)
-         new-threads (conj threads thread)]
+         id (+ (first (last threads)) 1)
+         new-threads (assoc threads id thread)]
      {:db (assoc db :threads new-threads)
       :dispatch [:set-active-route
                  {:panel :thread-panel
