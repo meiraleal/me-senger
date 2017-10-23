@@ -30,7 +30,7 @@
          message (js->clj (first message) :keywordize-keys true)
          messages (conj (:messages thread) message)
          new-thread (assoc thread :messages messages)
-         threads  (assoc @(re-frame/subscribe [:threads]) thread-key new-thread)]
+         threads  (assoc @(re-frame/subscribe [:get-all :threads]) thread-key new-thread)]
      (assoc db :threads threads))))
 
 
@@ -58,14 +58,3 @@
  :set-title
  (fn [db [_ title]]
    (assoc db :title title)))
-
-(re-frame/reg-event-db
- :back-button
- (fn [db [_ status]]
-   (assoc db :back-button status)))
-
-(re-frame/reg-event-db
- :get-thread
- (fn [db [_ thread]]
-   (let [threads (:threads db)]
-     (assoc db :threads threads))))
