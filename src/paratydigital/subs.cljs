@@ -18,57 +18,44 @@
    (:active-route db)))
 
 (re-frame/reg-sub
- :categories
- (fn [db _]
-   (:categories db)))
-
-(re-frame/reg-sub
- :category-by-key
- (fn [db [_ id]]
-   (first
-    (filter
-     #(= (int id) (:key %))
-     (:categories db)))))
-
-(re-frame/reg-sub
- :home-highlights
- (fn [db _]
-   (:home-highlights db)))
-
-(re-frame/reg-sub
- :ads
- (fn [db _]
-   (:ads db)))
+ :get-all
+ (fn [db [_ coll]]
+   (let [source (db coll)]
+     (into []
+           (map
+            (fn [[key value]]
+              (conj {:key key :id key} value))
+            source)))))
 
 (re-frame/reg-sub
  :ads-by-category
  (fn [db [_ id]]
-    (filter
-     #(= (int id) (:category %))
-     (:ads db))))
-
-(re-frame/reg-sub
- :ad-by-key
- (fn [db [_ id]]
-   (first
-    (filter
-     #(= (int id) (:key %))
-     (:ads db)))))
-
-(re-frame/reg-sub
- :threads
- (fn [db _]
-   (:threads db)))
-
-(re-frame/reg-sub
- :thread-by-key
- (fn [db [_ id]]
-   (first
-    (filter
-     #(= (int id) (:key %))
-    (:threads db)))))
+   (filter
+    #(= (int id) (:category %))
+    (:ads db))))
 
 (re-frame/reg-sub
  :back-button
  (fn [db _]
    (:back-button db)))
+
+(re-frame/reg-sub
+ :ad-by-key
+ (fn [db [_ id]]
+   (conj {:id id
+          :key id}
+         ((:ads db) id))))
+
+(re-frame/reg-sub
+ :thread-by-key
+ (fn [db [_ id]]
+   (conj {:id id
+          :key id}
+         ((:threads db) id))))
+
+(re-frame/reg-sub
+ :category-by-key
+ (fn [db [_ id]]
+   (conj {:id id
+          :key id}
+         ((:categories db) id))))

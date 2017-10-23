@@ -51,9 +51,9 @@
                    :render-item (fn [obj] (ad-item obj))}]]))
 
 (defn home-panel []
-  (let [categories (rf/subscribe [:categories])
-        ads (rf/subscribe [:ads])
-        home-highlights (rf/subscribe [:home-highlights])]
+  (let [categories (rf/subscribe [:get-all :categories])
+        ads (rf/subscribe [:get-all :ads])
+        home-highlights (rf/subscribe [:get-all :home-highlights])]
     (fn []
       (rf/dispatch [:set-title "Paraty Digital"])
       [ui/view

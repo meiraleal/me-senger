@@ -24,7 +24,7 @@
       [ui/divider]])))
 
 (defn threads-panel []
-  (let [threads (re-frame/subscribe [:threads])]
+  (let [threads (re-frame/subscribe [:get-all :threads])]
     (fn []
       (re-frame/dispatch [:set-title "Threads"])
       [ui/flat-list {:data @threads
