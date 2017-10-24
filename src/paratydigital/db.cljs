@@ -15,10 +15,10 @@
                      1 {:name "Bombando Agora"}
                      2 {:name "Novidade"}
                      3 {:name "Mais Vistos"}}
-   :categories {0 {:name "Comida"
+   :categories {0 {:name "Guia comercial"
                    :icon "restaurant"
                    :color :lightGreen700}
-                1 {:name "Hospedagem"
+                1 {:name "Promoções"
                    :icon "hotel"
                    :color :lightGreen700}
                 2 {:name "Passeios"
@@ -30,7 +30,7 @@
                 4 {:name "Notícias"
                    :icon "terrain"
                    :color :blue600}
-                5 {:name "Anuncios e Vagas"
+                5 {:name "Classificados"
                    :icon "directions-car"
                    :color :blue500}}
 
