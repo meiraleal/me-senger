@@ -45,6 +45,14 @@
     (:ads db))))
 
 (re-frame/reg-sub
+ :get-thread-by-ad-id
+ (fn [db [_ id]]
+   (first
+    (filter
+     #(= (int id) (:ad-id %))
+     (:threads db)))))
+
+(re-frame/reg-sub
  :back-button
  (fn [db _]
    (:back-button db)))

@@ -11,13 +11,15 @@
                     :subtitle "Categoria"}
       [ui/image {:source (js/require (str "./assets/images/image" (:key item) ".jpg"))}]])))
 
-(defn- create-thread-from-ad [ad user]
-  {:key (:key ad)
-   :ad-key (:key ad)
-   :user user
-   :messages [{:_id 1
-               :text "Primeira mensagem!"
-               :createdAt (js/Date.)}]})
+(defn create-thread-from-ad [ad user]
+  (let [thread @(rf/subscribe [:get-thread-by-ad-id (:id ad)])]
+    (if thread
+      thread
+      {:ad-id (:id ad)
+       :user user
+       :messages [{:_id 1
+                   :text "Primeira mensagem!"
+                   :createdAt (js/Date.)}]})))
 
 (defn back-button []
   [ui/view {:style {:position "absolute"
@@ -37,7 +39,8 @@
         tiles (rf/subscribe [:get-all :categories])
         ad @(rf/subscribe [:get-one :ads id])
         user @(rf/subscribe [:current-user])
-        image-url (str "./assets/images/image" id ".jpg")]
+        image-url (str "./assets/images/image" id ".jpg")
+        thread (create-thread-from-ad ad user)]
     (rf/dispatch [:set-title nil])
     [ui/view {:style {:position "absolute"
                       :top 0
@@ -74,4 +77,4 @@
                     :render-item (fn [obj] (tile obj))
                     :num-columns 2}]
      [ui/action-button {:icon "add"
-                        :on-press #(rf/dispatch [:open-thread (create-thread-from-ad ad user)])}]]))
+                        :on-press #(rf/dispatch [:open-thread thread])}]]))

@@ -53,12 +53,10 @@
             :headline "e Para todo mundo"
             :category 2}}
 
-   :threads {0
-             {:name "Guia de Paraty"
-              :ad-key 0
-              :messages [{:_id 1
-                          :text "Bom dia!"
-                          :createdAt (js/Date.)}
-                         {:_id 2
-                          :text "Seja bem-vindo(a) ao Paraty Digital! Eu serei o seu guia por aqui :)"
-                          :createdAt (js/Date.)}]}}})
+   :threads {0 {:ad-id 0
+                :messages [{:_id 1
+                            :text "Bom dia!"
+                            :createdAt (js/Date.)}
+                           {:_id 2
+                            :text "Seja bem-vindo(a) ao Paraty Digital! Eu serei o seu guia por aqui :)"
+                            :createdAt (js/Date.)}]}}})
