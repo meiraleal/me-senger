@@ -1,4 +1,9 @@
-(ns paratydigital.db)
+(ns paratydigital.db
+  (:require
+   [re-frame.core :as re-frame]
+   [glittershark.core-async-storage :refer [get-item set-item]]
+   [cljs.core.async :refer [<!]])
+  (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (def initial-route {:panel :home-panel})
 
@@ -60,3 +65,17 @@
                            {:_id 2
                             :text "Seja bem-vindo(a) ao Paraty Digital! Eu serei o seu guia por aqui :)"
                             :createdAt (js/Date.)}]}}})
+
+(defn save-db [dump]
+  (go
+    (<! (set-item :db dump))))
+
+(defn restore-db []
+  (println "restored")
+  (go
+    (let [dump (<! (get-item :db))]
+      (println (pr-str dump))
+      (re-frame/dispatch [:set-db]
+                         (if dump
+                           dump
+                           default-db)))))
