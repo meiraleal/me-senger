@@ -71,11 +71,9 @@
     (<! (set-item :db dump))))
 
 (defn restore-db []
-  (println "restored")
   (go
-    (let [dump (<! (get-item :db))]
-      (println (pr-str dump))
-      (re-frame/dispatch [:set-db]
-                         (if dump
-                           dump
-                           default-db)))))
+    (let [[_ dump] (<! (get-item :db))]
+      (re-frame/dispatch [:set-db
+                          (if dump
+                            dump
+                            default-db)]))))

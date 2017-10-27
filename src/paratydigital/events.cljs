@@ -6,7 +6,8 @@
 (re-frame/reg-event-fx
  :initialize-app
  (fn  [cofx [_ a]]
-   {:dispatch [:set-db db/default-db]}))
+   {:restore-db nil
+    :dispatch [:set-db db/default-db]}))
 
 (re-frame/reg-event-fx
  :open-thread
@@ -21,10 +22,13 @@
                  {:panel :thread-panel
                   :args {:id id}}]})))
 
+(re-frame/reg-fx :restore-db
+                 (fn []
+                   (db/restore-db)))
+
 (re-frame/reg-event-db
  :set-db
  (fn  [_ [_ initial-db]]
-   (db/save-db initial-db)
    initial-db))
 
 (re-frame/reg-event-db
