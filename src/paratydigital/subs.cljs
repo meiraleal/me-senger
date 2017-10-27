@@ -8,6 +8,11 @@
    (:title db)))
 
 (re-frame/reg-sub
+ :all-db
+ (fn [db]
+    db))
+
+(re-frame/reg-sub
  :current-user
  (fn [db]
    (:user db)))

@@ -73,6 +73,9 @@
 (defn restore-db []
   (go
     (let [[_ dump] (<! (get-item :db))]
+      (js/setInterval. (fn []
+                         (let [dump @(re-frame/subscribe [:all-db])]
+                           (save-db dump))) 10000)
       (re-frame/dispatch [:set-db
                           (if dump
                             dump

@@ -16,8 +16,10 @@
          id (if (:id thread)
               (:id thread)
               (+ (first (last threads)) 1))
-         new-threads (assoc threads id thread)]
-     {:db (assoc db :threads new-threads)
+         new-threads (assoc threads id thread)
+         new-db (assoc db :threads new-threads)]
+     {:db new-db
+      :save-db new-db
       :dispatch [:set-active-route
                  {:panel :thread-panel
                   :args {:id id}}]})))
@@ -25,6 +27,10 @@
 (re-frame/reg-fx :restore-db
                  (fn []
                    (db/restore-db)))
+
+(re-frame/reg-fx :save-db
+                 (fn [dump]
+                   (db/save-db dump)))
 
 (re-frame/reg-event-db
  :set-db
