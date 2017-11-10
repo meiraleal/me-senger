@@ -12,8 +12,7 @@
         [ui/app-bar
          {:style {:container {:background-color (ui/color :blueGrey600)}}
           :center-element @title
-          :left-element (if @back-button "arrow-back" "search")
+          :left-element "search"
           :on-left-element-press #(re-frame/dispatch [:back-history])
-          :right-element "inbox"
-                    :on-right-element-press #(re-frame/dispatch [:set-active-route
+          :on-right-element-press #(re-frame/dispatch [:set-active-route
                                                        {:panel :threads-panel}])}]))))

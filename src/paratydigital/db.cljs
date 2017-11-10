@@ -68,11 +68,11 @@
 
 (defn save-db [dump]
   (go
-    (<! (set-item :db dump))))
+    (<! (set-item :saved-db dump))))
 
 (defn restore-db []
   (go
-    (let [[_ dump] (<! (get-item :db))]
+    (let [[_ dump] (<! (get-item :saved-db))]
       (js/setInterval. (fn []
                          (let [dump @(re-frame/subscribe [:all-db])]
                            (save-db dump))) 10000)
