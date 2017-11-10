@@ -4,20 +4,15 @@
    [reagent.core :as r]
    [re-frame.core :as rf]
    [paratydigital.layout :as l]
-   [paratydigital.views.categories :as vc]
-   [paratydigital.views.ad :as va]
    [paratydigital.views.home :as vh]
-   [paratydigital.views.threads :as vm]
+   [paratydigital.views.threads :as vt]
    [paratydigital.views.user :as vu]))
 
 (defn panels [panel-name args]
   (let [args (js->clj args :keywordize-keys true)]
     (case panel-name
       :home-panel [vh/home-panel]
-      :category-panel [vc/category-panel args]
-      :ad-panel [va/ad-panel args]
-      :threads-panel [vm/threads-panel]
-      :thread-panel [vm/thread-panel args]
+      :thread-panel [vt/thread-panel args]
       :user-panel [vu/user-panel]
       [vh/home-panel])))
 
