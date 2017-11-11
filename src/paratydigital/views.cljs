@@ -13,7 +13,7 @@
     (case panel-name
       :home-panel [vh/home-panel]
       :thread-panel [vt/thread-panel args]
-      :user-panel [vu/user-panel]
+      :settings-panel [vu/user-panel]
       [vh/home-panel])))
 
 (defn content [route]

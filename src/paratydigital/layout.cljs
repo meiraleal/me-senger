@@ -13,6 +13,7 @@
          {:style {:container {:background-color (ui/color :blueGrey600)}}
           :center-element @title
           :left-element "search"
+          :right-element "settings"
           :on-left-element-press #(re-frame/dispatch [:back-history])
           :on-right-element-press #(re-frame/dispatch [:set-active-route
-                                                       {:panel :threads-panel}])}]))))
+                                                       {:panel :settings-panel}])}]))))
