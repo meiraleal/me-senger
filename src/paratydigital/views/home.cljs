@@ -5,18 +5,17 @@
    [material-ui.core :as ui]))
 
 (defn thread-fn [obj]
-  (let [
-        item (js->clj (aget obj "item") :keywordize-keys true)
+  (let [item (js->clj (aget obj "item") :keywordize-keys true)
         id (:id item)
         last-message (last (:messages item))
-        ad @(rf/subscribe [:get-one :ads (:ad-id item)])]
+        bot @(rf/subscribe [:get-one :bots (:bot-id item)])]
     (r/as-element
      [ui/view {:id id}
       [ui/list-item
        {:left-element (r/as-element [ui/image {:source (js/require (str "./assets/images/image" id ".jpg"))}])
         :on-press #(rf/dispatch [:set-active-route
                                        {:panel :thread-panel :args item}])
-        :center-element {:primary-text (:name ad)
+        :center-element {:primary-text (:name bot)
                          :secondary-text (if last-message (:text last-message))}
         :number-of-lines 2}]
       [ui/divider]])))

@@ -43,18 +43,11 @@
            (source id)))))
 
 (re-frame/reg-sub
- :ads-by-category
- (fn [db [_ id]]
-   (filter
-    #(= (int id) (:category %))
-    (:ads db))))
-
-(re-frame/reg-sub
- :get-thread-by-ad-id
+ :get-thread-by-bot-id
  (fn [db [_ id]]
    (first
     (filter
-     #(= (int id) (:ad-id %))
+     #(= (int id) (:bot-id %))
      (:threads db)))))
 
 (re-frame/reg-sub
