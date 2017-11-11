@@ -14,6 +14,5 @@
           :center-element @title
           :left-element (if @back-button "arrow-back" "search")
           :right-element "settings"
-          :on-left-element-press #(re-frame/dispatch [:back-history])
-          :on-right-element-press #(re-frame/dispatch [:set-active-route
-                                                       {:panel :settings-panel}])}]))))
+          :on-left-element-press #(re-frame/dispatch (if @back-button [:back-history] [:start-search]))
+          :on-right-element-press #(re-frame/dispatch [:set-active-route {:panel :settings-panel}])}]))))
