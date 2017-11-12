@@ -1,7 +1,7 @@
 (ns ^:figwheel-no-load env.android.main
   (:require [reagent.core :as r]
             [re-frame.core :refer [clear-subscription-cache!]]
-            [paratydigital.android.core :as core]
+            [main.android.core :as core]
             [figwheel.client :as fw]
             [env.config :as conf]))
 

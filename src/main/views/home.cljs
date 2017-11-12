@@ -1,4 +1,4 @@
-(ns paratydigital.views.home
+(ns main.views.home
   (:require
    [reagent.core :as r]
    [re-frame.core :as rf]

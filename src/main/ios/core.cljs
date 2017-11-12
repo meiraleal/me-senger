@@ -1,8 +1,8 @@
-(ns paratydigital.ios.core
+(ns main.ios.core
   (:require [reagent.core :as r :refer [atom]]
             [re-frame.core :refer [subscribe dispatch dispatch-sync]]
-            [paratydigital.events]
-            [paratydigital.subs]))
+            [main.events]
+            [main.subs]))
 
 (def ReactNative (js/require "react-native"))
 
@@ -30,4 +30,4 @@
 
 (defn init []
       (dispatch-sync [:initialize-db])
-      (.registerComponent app-registry "paratydigital" #(r/reactify-component app-root)))
+      (.registerComponent app-registry "me-senger" #(r/reactify-component app-root)))

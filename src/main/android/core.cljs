@@ -1,10 +1,10 @@
-(ns paratydigital.android.core
+(ns main.android.core
   (:require [reagent.core :as reagent]
             [re-frame.core :as re-frame]
-            [paratydigital.events]
-            [paratydigital.subs]
-            [paratydigital.views :as views]
-            [paratydigital.config :as config]
+            [main.events]
+            [main.subs]
+            [main.views :as views]
+            [main.config :as config]
             [material-ui.core :as ui]))
 
 (def ReactNative (js/require "react-native"))
@@ -32,4 +32,4 @@
 (defn ^:export init []
   (dev-setup)
   (re-frame/dispatch-sync [:initialize-app])
-  (.registerComponent app-registry "paratydigital" #(reagent/reactify-component app-root)))
+  (.registerComponent app-registry "me-senger" #(reagent/reactify-component app-root)))

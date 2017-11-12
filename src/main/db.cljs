@@ -1,4 +1,4 @@
-(ns paratydigital.db
+(ns main.db
   (:require
    [re-frame.core :as re-frame]
    [glittershark.core-async-storage :refer [get-item set-item]]

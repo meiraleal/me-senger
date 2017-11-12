@@ -1,4 +1,4 @@
-(ns paratydigital.views.user
+(ns main.views.user
   (:require
    [reagent.core :as r]
    [re-frame.core :as re-frame]

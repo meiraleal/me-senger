@@ -1,7 +1,7 @@
-(ns paratydigital.events
+(ns main.events
   (:require [re-frame.core :as re-frame]
-            [paratydigital.db :as db]
-            [paratydigital.config :as config]))
+            [main.db :as db]
+            [main.config :as config]))
 
 (re-frame/reg-event-fx
  :initialize-app

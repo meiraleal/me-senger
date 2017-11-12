@@ -1,6 +1,4 @@
  (ns env.ios.main
-  (:require [paratydigital.ios.core :as core]))
+  (:require [main.ios.core :as core]))
 
  (core/init)
-
-

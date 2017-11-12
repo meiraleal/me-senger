@@ -1,12 +1,12 @@
-(ns paratydigital.views
+(ns main.views
   (:require
    [material-ui.core :as ui]
    [reagent.core :as r]
    [re-frame.core :as rf]
-   [paratydigital.layout :as l]
-   [paratydigital.views.home :as vh]
-   [paratydigital.views.threads :as vt]
-   [paratydigital.views.user :as vu]))
+   [main.layout :as l]
+   [main.views.home :as vh]
+   [main.views.threads :as vt]
+   [main.views.user :as vu]))
 
 (defn panels [panel-name args]
   (let [args (js->clj args :keywordize-keys true)]

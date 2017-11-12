@@ -1,4 +1,4 @@
-(ns paratydigital.layout
+(ns main.layout
   (:require
    [re-frame.core :as re-frame]
    [material-ui.core :as ui]

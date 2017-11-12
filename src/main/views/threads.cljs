@@ -1,4 +1,4 @@
-(ns paratydigital.views.threads
+(ns main.views.threads
   (:require
    [reagent.core :as r]
    [re-frame.core :as rf]

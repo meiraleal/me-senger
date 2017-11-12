@@ -1,6 +1,4 @@
  (ns env.android.main
-  (:require [paratydigital.android.core :as core]))
+  (:require [main.android.core :as core]))
 
  (core/init)
-
-
