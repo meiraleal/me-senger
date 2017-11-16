@@ -1,5 +1,5 @@
 {
-  "name": "paratydigital",
+  "name": "mesenger",
   "interface": "reagent6",
   "envRoots": {
     "dev": "env/dev",
