@@ -1,4 +1,4 @@
-package com.mesenger;
+package com.hostel;
 
 import android.app.Application;
 

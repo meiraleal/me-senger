@@ -1,5 +1,5 @@
 {
-  "name": "mesenger",
+  "name": "hostel",
   "interface": "reagent6",
   "envRoots": {
     "dev": "env/dev",
