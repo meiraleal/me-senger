@@ -22,7 +22,7 @@
 
 (defn home-panel []
   (let [threads (rf/subscribe [:get-all :threads])]
-    (rf/dispatch [:set-title "Messenger"])
+    (rf/dispatch [:set-title "Hostel XYZ"])
     [ui/view {:style {:flex 1}}
      [ui/flat-list {:data @threads
                     :render-item #(thread-fn %)}]
