@@ -14,7 +14,10 @@
       [ui/list-item
        {:left-element (if (:avatar bot)
                         (r/as-element
-                         [ui/image {:source (js/require (:avatar bot))}]))
+                         [ui/image {:source (js/require (:avatar bot))
+                                    :style {:width "100%"
+                                            :height "100%"}
+                                    }]))
         :on-press #(rf/dispatch [:set-active-route
                                  {:panel :thread-panel :args item}])
         :center-element {:primary-text (:name bot)
