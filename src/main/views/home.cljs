@@ -22,6 +22,17 @@
         :number-of-lines 2}]
       [ui/divider]])))
 
+(defn- start-thread [bot]
+  {:bot-id (:key bot)
+   :messages [{:_id 1
+               :text (:text bot)
+               :createdAt (js/Date.)}]})
+
+(defn- open-thread [bot-id]
+  (let [bot @(rf/subscribe [:get-one :bots bot-id])]
+    (if bot
+      (rf/dispatch [:open-thread (start-thread bot)]))))
+
 (defn- bot-actions [bots]
   (into []
         (map
@@ -40,4 +51,5 @@
      [ui/flat-list {:data @threads
                     :render-item #(thread-fn %)}]
      [ui/action-button {:transition "speedDial"
+                        :on-press #(open-thread (keyword %))
                         :actions (bot-actions @bots)}]]))

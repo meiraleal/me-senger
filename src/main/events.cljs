@@ -16,7 +16,6 @@
          id (:bot-id thread)
          new-threads (assoc threads id thread)
          new-db (assoc db :threads new-threads)]
-     (println id)
      {:db new-db
       :save-db new-db
       :dispatch [:set-active-route
