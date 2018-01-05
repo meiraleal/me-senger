@@ -18,25 +18,31 @@
           :avatar "https://facebook.github.io/react/img/logo_og.png"}
    :bots {:recepcao {:name "Recepção"
                      :icon "done"
-                     :text "Welcome to Hostel XYZ!"}
+                     :text "Welcome to Hostel XYZ!"
+                     :avatar "./assets/images/image0.jpg"}
           :concierge {:name "Concierge"
                       :icon "done"
-                      :text "What do you wanna do today?"}
+                      :text "What do you wanna do today?"
+                      :avatar "./assets/images/image1.jpg"}
           :bar {:name "Bar"
                 :text "Beer time?"
-             :icon "done"}}
-   :threads {0 {:bot-id :recepcao
+                :icon "done"
+                :avatar "./assets/images/image3.jpg"}}
+   :threads {:recepcao {:bot-id :recepcao
                 :messages [{:_id 1
                             :text "Welcome to Hostel XYZ!"
                             :createdAt (js/Date.)}]}}})
 
+(def db-name :dump-db-16)
+
 (defn save-db [dump]
   (go
-    (<! (set-item :dump-db-232123 dump))))
+    (<! (set-item db-name
+                  dump))))
 
 (defn restore-db []
   (go
-    (let [[_ dump] (<! (get-item :dump-db-232123))]
+    (let [[_ dump] (<! (get-item db-name))]
       (js/setInterval. (fn []
                          (let [dump @(re-frame/subscribe [:all-db])]
                            (save-db dump))) 10000)

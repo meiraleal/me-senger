@@ -11,9 +11,9 @@
    :avatar "https://facebook.github.io/react/img/logo_og.png"})
 
 (defn thread-panel [args]
-  (let [id (:id args)
+  (let [id (keyword (:id args))
         thread @(rf/subscribe [:get-one :threads id])
-        bot @(rf/subscribe [:get-one :bots (:bot-id thread)])
+        bot @(rf/subscribe [:get-one :bots id])
         messages (into []
                        (map
                         (fn [msg]

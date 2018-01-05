@@ -12,7 +12,9 @@
     (r/as-element
      [ui/view {:id id}
       [ui/list-item
-       {:left-element (r/as-element [ui/image {:source (js/require (str "./assets/images/image" id ".jpg"))}])
+       {:left-element (if (:avatar bot)
+                        (r/as-element
+                         [ui/image {:source (js/require (:avatar bot))}]))
         :on-press #(rf/dispatch [:set-active-route
                                  {:panel :thread-panel :args item}])
         :center-element {:primary-text (:name bot)

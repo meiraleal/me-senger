@@ -38,7 +38,7 @@
  :get-one
  (fn [db [_ coll id]]
    (let [source (db coll)
-         item (source id)]
+         item (id source)]
      (if item
        (conj {:id id
               :key id}

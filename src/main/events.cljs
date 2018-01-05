@@ -13,11 +13,10 @@
  :open-thread
  (fn  [{:keys [db]} [_ thread]]
    (let [threads (:threads db)
-         id (if (:id thread)
-              (:id thread)
-              (+ (first (last threads)) 1))
+         id (:bot-id thread)
          new-threads (assoc threads id thread)
          new-db (assoc db :threads new-threads)]
+     (println id)
      {:db new-db
       :save-db new-db
       :dispatch [:set-active-route
