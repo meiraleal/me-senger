@@ -8,7 +8,7 @@
   (let [item (js->clj (aget obj "item") :keywordize-keys true)
         id (:id item)
         last-message (last (:messages item))
-        bot @(rf/subscribe [:get-one :bots (:bot-id item)])]
+        bot @(rf/subscribe [:get-one :bots (keyword (:bot-id item))])]
     (r/as-element
      [ui/view {:id id}
       [ui/list-item
