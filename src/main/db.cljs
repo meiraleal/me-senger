@@ -17,12 +17,14 @@
           :name "Alan Leal"
           :avatar "https://facebook.github.io/react/img/logo_og.png"}
    :bots {:recepcao {:name "Recepção"
-             :icon "done"}
+                     :icon "done"
+                     :text "Welcome to Hostel XYZ!"}
           :concierge {:name "Concierge"
-             :icon "done"}
+                      :icon "done"
+                      :text "What do you wanna do today?"}
           :bar {:name "Bar"
+                :text "Beer time?"
              :icon "done"}}
-
    :threads {0 {:bot-id :recepcao
                 :messages [{:_id 1
                             :text "Welcome to Hostel XYZ!"
@@ -30,11 +32,11 @@
 
 (defn save-db [dump]
   (go
-    (<! (set-item :database dump))))
+    (<! (set-item :dump-db-232123 dump))))
 
 (defn restore-db []
   (go
-    (let [[_ dump] (<! (get-item :database))]
+    (let [[_ dump] (<! (get-item :dump-db-232123))]
       (js/setInterval. (fn []
                          (let [dump @(re-frame/subscribe [:all-db])]
                            (save-db dump))) 10000)

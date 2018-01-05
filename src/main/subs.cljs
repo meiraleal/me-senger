@@ -10,7 +10,7 @@
 (re-frame/reg-sub
  :all-db
  (fn [db]
-    db))
+   db))
 
 (re-frame/reg-sub
  :current-user
@@ -37,10 +37,12 @@
 (re-frame/reg-sub
  :get-one
  (fn [db [_ coll id]]
-   (let [source (db coll)]
-     (conj {:id id
-            :key id}
-           (source id)))))
+   (let [source (db coll)
+         item (source id)]
+     (if item
+       (conj {:id id
+              :key id}
+             item)))))
 
 (re-frame/reg-sub
  :get-thread-by-bot-id
