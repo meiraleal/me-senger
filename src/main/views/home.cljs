@@ -14,25 +14,28 @@
       [ui/list-item
        {:left-element (r/as-element [ui/image {:source (js/require (str "./assets/images/image" id ".jpg"))}])
         :on-press #(rf/dispatch [:set-active-route
-                                       {:panel :thread-panel :args item}])
+                                 {:panel :thread-panel :args item}])
         :center-element {:primary-text (:name bot)
                          :secondary-text (if last-message (:text last-message))}
         :number-of-lines 2}]
       [ui/divider]])))
 
+(defn- bot-actions [bots]
+  (into []
+        (map
+         (fn [bot]
+           {:icon (:icon bot)
+            :key (:key bot)
+            :label (:name bot)
+            :name (:key bot)})
+         bots)))
+
 (defn home-panel []
-  (let [threads (rf/subscribe [:get-all :threads])]
+  (let [threads (rf/subscribe [:get-all :threads])
+        bots (rf/subscribe [:get-all :bots])]
     (rf/dispatch [:set-title "Hostel XYZ"])
     [ui/view {:style {:flex 1}}
      [ui/flat-list {:data @threads
                     :render-item #(thread-fn %)}]
      [ui/action-button {:transition "speedDial"
-                        :actions [{:icon "done"
-                                   :key "teste"
-                                   :label "teste"
-                                   :name "teste"}
-                                  {:icon "search"
-                                   :key "teste"
-                                   :label "teste"
-                                   :name "teste"}
-                                  ]}]]))
+                        :actions (bot-actions @bots)}]]))
