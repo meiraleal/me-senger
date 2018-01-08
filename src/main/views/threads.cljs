@@ -26,6 +26,6 @@
     [ui/view {:style {:flex 1}}
      [chat/gifted-chat {:user user
                         :on-send #(rf/dispatch [:add-message-to-thread
-                                                      (:id args)
+                                                      id
                                                       %])
                         :messages messages}]]))

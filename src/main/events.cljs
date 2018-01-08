@@ -38,6 +38,7 @@
 (re-frame/reg-event-db
  :add-message-to-thread
  (fn [db [_ thread-id message]]
+   (println thread-id)
    (let [thread @(re-frame/subscribe [:get-one :threads thread-id])
          message (js->clj (first message) :keywordize-keys true)
          messages (conj (:messages thread) message)
