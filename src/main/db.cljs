@@ -33,7 +33,7 @@
                                     :text "Welcome to Hostel XYZ!"
                             :createdAt (js/Date.)}]}}})
 
-(def db-name :dump-db-21)
+(def db-name :dump-db-23)
 
 (defn save-db [dump]
   (go
