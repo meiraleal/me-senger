@@ -36,24 +36,21 @@
  (fn  [_ [_ initial-db]]
    initial-db))
 
-(defn- proccess-message [id message]
-  (let [reply {:_id (.getTime (js/Date.))
-               :text "Resposta automatica!"
-               :createdAt (js/Date.)
-               :robot true}]
-    (re-frame/dispatch [:add-message-to-thread id reply])))
-
-(re-frame/reg-event-db
+(re-frame/reg-event-fx
  :add-message-to-thread
- (fn [db [_ thread-id message]]
+ (fn  [{:keys [db]} [_ thread-id message]]
    (let [thread @(re-frame/subscribe [:get-one :threads thread-id])
          message (js->clj (first message) :keywordize-keys true)
          messages (conj (:messages thread) message)
          new-thread (assoc thread :messages messages)]
-     ;(if (not (:robot message))
-     ;  (proccess-message thread-id message))
-     ;(chat/append (:messages thread) messages)
-     (assoc-in db [:threads thread-id] new-thread))))
+     {:db (assoc-in db [:threads thread-id] new-thread)
+      :dispatch [:bot-reply-message thread-id message]})))
+
+(re-frame/reg-event-db
+ :bot-reply-message
+ (fn [db [_ thread-id message]]
+   (println thread-id)
+   db))
 
 (re-frame/reg-event-db
  :set-active-route
