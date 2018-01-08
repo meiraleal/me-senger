@@ -1,7 +1,8 @@
 (ns main.events
   (:require [re-frame.core :as re-frame]
             [main.db :as db]
-            [main.config :as config]))
+            [main.config :as config]
+            [gifted-chat.core :as chat]))
 
 (re-frame/reg-event-fx
  :initialize-app
@@ -35,16 +36,24 @@
  (fn  [_ [_ initial-db]]
    initial-db))
 
+(defn- proccess-message [id message]
+  (let [reply {:_id 12341241243
+               :text "Resposta automatica!"
+               :createdAt (js/Date.)
+               :robot true}]
+    (re-frame/dispatch [:add-message-to-thread id reply])))
+
 (re-frame/reg-event-db
  :add-message-to-thread
  (fn [db [_ thread-id message]]
-   (println thread-id)
    (let [thread @(re-frame/subscribe [:get-one :threads thread-id])
          message (js->clj (first message) :keywordize-keys true)
          messages (conj (:messages thread) message)
          new-thread (assoc thread :messages messages)]
+     ;(if (not (:robot message))
+     ;  (proccess-message thread-id message))
+     ;(chat/append (:messages thread) messages)
      (assoc-in db [:threads thread-id] new-thread))))
-
 
 (re-frame/reg-event-db
  :set-active-route

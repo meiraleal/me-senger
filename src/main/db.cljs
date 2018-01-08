@@ -13,7 +13,7 @@
    :active-route initial-route
    :history [initial-route]
    :args nil
-   :user {:_id 22222
+   :user {:_id 2
           :name "Alan Leal"
           :avatar "https://facebook.github.io/react/img/logo_og.png"}
    :bots {:recepcao {:name "Recepção"
