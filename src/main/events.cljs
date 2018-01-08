@@ -37,7 +37,7 @@
    initial-db))
 
 (defn- proccess-message [id message]
-  (let [reply {:_id 12341241243
+  (let [reply {:_id (.getTime (js/Date.))
                :text "Resposta automatica!"
                :createdAt (js/Date.)
                :robot true}]

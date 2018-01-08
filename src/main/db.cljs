@@ -29,11 +29,11 @@
                 :icon "done"
                 :avatar "./assets/images/image3.jpg"}}
    :threads {:recepcao {:bot-id :recepcao
-                :messages [{:_id 1
-                            :text "Welcome to Hostel XYZ!"
+                        :messages [{:_id (.getTime (js/Date.))
+                                    :text "Welcome to Hostel XYZ!"
                             :createdAt (js/Date.)}]}}})
 
-(def db-name :dump-db-19)
+(def db-name :dump-db-21)
 
 (defn save-db [dump]
   (go

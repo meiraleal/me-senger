@@ -22,6 +22,7 @@
                             msg))
                         (reverse (:messages thread))))
         user @(rf/subscribe [:current-user])]
+    (println (pr-str messages))
     (rf/dispatch [:set-title (:name thread)])
     [ui/view {:style {:flex 1}}
      [chat/gifted-chat {:user user
