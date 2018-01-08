@@ -36,15 +36,20 @@
  (fn  [_ [_ initial-db]]
    initial-db))
 
+(defn add-message [db thread-id message]
+  (let [thread @(re-frame/subscribe [:get-one :threads thread-id])
+        message (js->clj (first message) :keywordize-keys true)
+        messages (conj (:messages thread) message)
+        new-thread (assoc thread :messages messages)]
+    (assoc-in db
+              [:threads thread-id]
+              new-thread)))
+
 (re-frame/reg-event-fx
  :add-message-to-thread
  (fn  [{:keys [db]} [_ thread-id message]]
-   (let [thread @(re-frame/subscribe [:get-one :threads thread-id])
-         message (js->clj (first message) :keywordize-keys true)
-         messages (conj (:messages thread) message)
-         new-thread (assoc thread :messages messages)]
-     {:db (assoc-in db [:threads thread-id] new-thread)
-      :dispatch [:bot-reply-message thread-id message]})))
+   {:db (add-message db thread-id message)
+    :dispatch [:bot-reply-message thread-id message]}))
 
 (re-frame/reg-event-db
  :bot-reply-message
