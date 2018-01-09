@@ -34,28 +34,33 @@
 (re-frame/reg-event-db
  :set-db
  (fn  [_ [_ initial-db]]
+   (println initial-db)
    initial-db))
 
 (defn add-message [db thread-id message]
   (let [thread @(re-frame/subscribe [:get-one :threads thread-id])
-        message (js->clj (first message) :keywordize-keys true)
         messages (conj (:messages thread) message)
-        new-thread (assoc thread :messages messages)]
-    (assoc-in db
-              [:threads thread-id]
-              new-thread)))
+        new-thread (assoc thread :messages messages)
+        new-db (assoc-in db
+                         [:threads thread-id]
+                         new-thread)]
+    (println new-db)
+    new-db))
 
 (re-frame/reg-event-fx
  :add-message-to-thread
  (fn  [{:keys [db]} [_ thread-id message]]
-   {:db (add-message db thread-id message)
-    :dispatch [:bot-reply-message thread-id message]}))
+   (let [message (js->clj (first message) :keywordize-keys true)]
+     {:db (add-message db thread-id message)
+      :dispatch [:bot-reply-message thread-id message]})))
 
 (re-frame/reg-event-db
  :bot-reply-message
  (fn [db [_ thread-id message]]
-   (println thread-id)
-   db))
+   (add-message db thread-id
+                {:_id (.getTime (js/Date.))
+                 :text "Resposta automatica!"
+                 :createdAt (js/Date.)})))
 
 (re-frame/reg-event-db
  :set-active-route
