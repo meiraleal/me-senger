@@ -34,7 +34,6 @@
 (re-frame/reg-event-db
  :set-db
  (fn  [_ [_ initial-db]]
-   (println initial-db)
    initial-db))
 
 (defn add-message [db thread-id message]
@@ -44,7 +43,6 @@
         new-db (assoc-in db
                          [:threads thread-id]
                          new-thread)]
-    (println new-db)
     new-db))
 
 (re-frame/reg-event-fx
@@ -54,13 +52,21 @@
      {:db (add-message db thread-id message)
       :dispatch [:bot-reply-message thread-id message]})))
 
+(defn reply []
+  {:_id (.getTime (js/Date.))
+   :text "Testessssss"
+   :createdAt (js/Date.)})
+
+(defn select-reply [message]
+  (println message)
+  (reply))
+
 (re-frame/reg-event-db
  :bot-reply-message
  (fn [db [_ thread-id message]]
-   (add-message db thread-id
-                {:_id (.getTime (js/Date.))
-                 :text "Resposta automatica!"
-                 :createdAt (js/Date.)})))
+   (add-message db
+                thread-id
+                (select-reply message))))
 
 (re-frame/reg-event-db
  :set-active-route
