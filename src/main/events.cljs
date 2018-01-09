@@ -52,21 +52,19 @@
      {:db (add-message db thread-id message)
       :dispatch [:bot-reply-message thread-id message]})))
 
-(defn reply []
-  {:_id (.getTime (js/Date.))
-   :text "Testessssss"
-   :createdAt (js/Date.)})
-
-(defn select-reply [message]
-  (println message)
-  (reply))
+(defn select-reply [text]
+  (let [answer {:_id (.getTime (js/Date.))
+                :createdAt (js/Date.)}]
+    (case text
+      (when "teste"
+        (assoc answer :text "teste legal")))))
 
 (re-frame/reg-event-db
  :bot-reply-message
  (fn [db [_ thread-id message]]
    (add-message db
                 thread-id
-                (select-reply message))))
+                (select-reply (:text message)))))
 
 (re-frame/reg-event-db
  :set-active-route
