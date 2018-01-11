@@ -53,15 +53,16 @@
      {:db (add-message db thread-id message)
       :dispatch [:bot-reply-message thread-id message]})))
 
+
+
 (defn select-reply [bot text]
   (let [answer {:_id (.getTime (js/Date.))
-                :createdAt (js/Date.)}]
-    (case text
-      "claro"
-      (assoc answer :text "Cerveja ou caipirinha?")
-      "boa tarde"
-      (assoc answer :text "qq tem de bom?")
-      (assoc answer :text "Não entendi o que vc falou!"))))
+                :createdAt (js/Date.)}
+        replies (:replies bot)
+        reply (get replies text)]
+    (if reply
+      (assoc answer :text reply)
+      (assoc answer :text "Comando invalido"))))
 
 (re-frame/reg-event-db
  :bot-reply-message
