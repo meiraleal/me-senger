@@ -22,6 +22,7 @@
                                  {:panel :thread-panel :args item}])
         :center-element {:primary-text (:name bot)
                          :secondary-text (if last-message (:text last-message))}
+        :style {:left-element-container {:margin-right 10}}
         :number-of-lines 2}]
       [ui/divider]])))
 
