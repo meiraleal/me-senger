@@ -10,6 +10,19 @@
    {:restore-db nil
     :dispatch [:set-db db/default-db]}))
 
+(re-frame/reg-fx :restore-db
+                 (fn []
+                   (db/restore-db)))
+
+(re-frame/reg-fx :save-db
+                 (fn [dump]
+                   (db/save-db dump)))
+
+(re-frame/reg-event-db
+ :set-db
+ (fn  [_ [_ initial-db]]
+   initial-db))
+
 (re-frame/reg-event-fx
  :open-thread
  (fn  [{:keys [db]} [_ thread]]
@@ -23,18 +36,6 @@
                  {:panel :thread-panel
                   :args {:id id}}]})))
 
-(re-frame/reg-fx :restore-db
-                 (fn []
-                   (db/restore-db)))
-
-(re-frame/reg-fx :save-db
-                 (fn [dump]
-                   (db/save-db dump)))
-
-(re-frame/reg-event-db
- :set-db
- (fn  [_ [_ initial-db]]
-   initial-db))
 
 (defn add-message [db thread-id message]
   (let [thread @(re-frame/subscribe [:get-one :threads thread-id])
@@ -56,10 +57,11 @@
   (let [answer {:_id (.getTime (js/Date.))
                 :createdAt (js/Date.)}]
     (case text
-      "teste"
-        (assoc answer :text "teste legal")
-      "asd"
-        (assoc answer :text "teste chato"))))
+      "claro"
+      (assoc answer :text "Cerveja ou caipirinha?")
+      "boa tarde"
+      (assoc answer :text "qq tem de bom?")
+      (assoc answer :text "Não entendi o que vc falou!"))))
 
 (re-frame/reg-event-db
  :bot-reply-message
