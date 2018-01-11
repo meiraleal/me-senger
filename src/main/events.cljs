@@ -59,7 +59,8 @@
   (let [answer {:_id (.getTime (js/Date.))
                 :createdAt (js/Date.)}
         replies (:replies bot)
-        reply (get replies text)]
+        reply (get replies
+                   (clojure.string/lower-case text))]
     (if reply
       (assoc answer :text reply)
       (assoc answer :text "Comando invalido"))))

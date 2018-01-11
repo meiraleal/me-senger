@@ -36,6 +36,8 @@
                 :avatar "./assets/images/image3.jpg"
                 :replies {
                           "teste" "legal"
+                          "cerveja" "Brahma, Heineken ou Bohemia?"
+                          "caipirinha" "Custa 10 reais."
                           }
                 }}
    :threads {:recepcao {:bot-id :recepcao
@@ -43,7 +45,7 @@
                                     :text "Welcome to Hostel XYZ!"
                                     :createdAt (js/Date.)}]}}})
 
-(def db-name :dump-db-33)
+(def db-name :dump-db-34)
 
 (defn save-db [dump]
   (go
