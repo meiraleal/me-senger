@@ -59,8 +59,12 @@
   (let [answer {:_id (.getTime (js/Date.))
                 :createdAt (js/Date.)}
         replies (:replies bot)
-        reply (get replies
-                   (clojure.string/lower-case text))]
+        splitted-reply (clojure.string/split text " ")
+        command (clojure.string/lower-case
+                 (first
+                  splitted-reply))
+        args (rest splitted-reply)
+        reply (get replies command)]
     (if reply
       (assoc answer :text reply)
       (assoc answer :text "Comando invalido"))))

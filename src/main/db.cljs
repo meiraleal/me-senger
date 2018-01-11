@@ -20,32 +20,28 @@
                      :icon "done"
                      :text "Welcome to Hostel XYZ!"
                      :avatar "./assets/images/image0.jpg"
-                     :replies {
-                               "teste" "legal"
-                               }}
+                     :replies {"checkin" "Ola hospede! Para fazer checkin, responda \"confirmar\"!"
+                               "checkout" "Obrigado pela estadia. Espero que tenha sido incrivel!"
+                               "confirmar" "Seja bem vindo."}}
           :concierge {:name "Concierge"
                       :icon "done"
                       :text "What do you wanna do today?"
                       :avatar "./assets/images/image1.jpg"
-                      :replies {
-                                "teste" "legal"
-                                }}
+                      :replies {"teste" "legal"}}
           :bar {:name "Bar"
                 :text "Beer time?"
                 :icon "done"
                 :avatar "./assets/images/image3.jpg"
-                :replies {
-                          "teste" "legal"
+                :replies {"teste" "legal"
                           "cerveja" "Brahma, Heineken ou Bohemia?"
                           "caipirinha" "Custa 10 reais."
-                          }
-                }}
+                          "confirmar" "Pedido confirmado. Nosso atendente ira entregar em breve."}}}
    :threads {:recepcao {:bot-id :recepcao
                         :messages [{:_id (.getTime (js/Date.))
                                     :text "Welcome to Hostel XYZ!"
                                     :createdAt (js/Date.)}]}}})
 
-(def db-name :dump-db-34)
+(def db-name :dump-db-37)
 
 (defn save-db [dump]
   (go
