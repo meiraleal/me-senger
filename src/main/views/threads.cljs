@@ -22,7 +22,7 @@
                             msg))
                         (reverse (:messages thread))))
         user @(rf/subscribe [:current-user])]
-    (rf/dispatch [:set-title (:name thread)])
+    (rf/dispatch [:set-title (:name bot)])
     [ui/view {:style {:flex 1}}
      [chat/gifted-chat {:user user
                         :on-send #(rf/dispatch [:add-message-to-thread
