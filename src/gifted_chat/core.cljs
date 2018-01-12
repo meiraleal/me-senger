@@ -10,3 +10,7 @@
 (def append (aget
              gifted-chat-react
              "append"))
+
+(def focus (aget
+             gifted-chat-react
+             "focusTextInput"))
