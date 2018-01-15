@@ -23,10 +23,10 @@
 
 (defn main-panel []
   (let [active-route (rf/subscribe [:active-route])
-        ]
-    (fn []
-      [ui/theme-provider {:ui-theme {}}
-       [ui/view {:style {:background-color "#eeeeee"
-                         :flex 1}}
-        [l/header]
-        [content @active-route]]])))
+        title @(rf/subscribe [:title])]
+    [ui/theme-provider {:ui-theme {}}
+     [ui/view {:style {:background-color "#eeeeee"
+                       :flex 1}}
+      (if title
+        [l/header title])
+      [content @active-route]]]))

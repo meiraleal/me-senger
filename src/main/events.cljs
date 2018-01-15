@@ -102,3 +102,8 @@
  :set-title
  (fn [db [_ title]]
    (assoc db :title title)))
+
+(re-frame/reg-event-db
+ :auth
+ (fn [db [_ user]]
+   (assoc db :user user)))

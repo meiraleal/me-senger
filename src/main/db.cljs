@@ -8,14 +8,12 @@
 (def initial-route {:panel :home-panel})
 
 (def default-db
-  {:title "Hostel XYZ"
+  {:title nil
    :back-button false
    :active-route initial-route
    :history [initial-route]
    :args nil
-   :user {:_id 2
-          :name "Alan Leal"
-          :avatar "https://facebook.github.io/react/img/logo_og.png"}
+   :user nil
    :bots {:recepcao {:name "Recepção"
                      :icon "done"
                      :text "Welcome to Hostel XYZ!"
@@ -42,7 +40,7 @@
                                     :text "Welcome to Hostel XYZ!"
                                     :createdAt (js/Date.)}]}}})
 
-(def db-name :dump-db-40)
+(def db-name :dump-db-44)
 
 (defn save-db [dump]
   (go

@@ -57,10 +57,26 @@
             :name (:key bot)})
          bots)))
 
-(defn home-panel []
+(def user
+  {:_id 2
+   :name "Alan Leal"
+   :avatar "https://facebook.github.io/react/img/logo_og.png"})
+
+(defn login-panel []
+  (rf/dispatch [:set-title nil])
+  [ui/view {:style {:flex 1
+                    :flex-direction "row"
+                    :justify-content "center"
+                    :align-items "center"
+                    :background-color (ui/color :blueGrey600)}}
+   [ui/button {:raised true
+               :primary true
+               :text "Login with Facebook"
+               :on-press #(rf/dispatch [:auth user])}]])
+
+(defn threads-panel []
   (let [threads (reorder-threads @(rf/subscribe [:get-all :threads]))
         bots (rf/subscribe [:get-all :bots])]
-    (println threads)
     (rf/dispatch [:set-title "Hostel XYZ"])
     [ui/view {:style {:flex 1}}
      [ui/flat-list {:data threads
@@ -70,3 +86,10 @@
                                     (if (not (= (keyword btn) :main-button))
                                       (open-thread (keyword btn))))
                         :actions (bot-actions @bots)}]]))
+
+(defn home-panel []
+  (let [user @(rf/subscribe [:get-user])]
+    (rf/dispatch [:auth user])
+    (if user
+      [threads-panel]
+      [login-panel])))

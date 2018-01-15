@@ -56,3 +56,8 @@
  :back-button
  (fn [db _]
    (:back-button db)))
+
+(re-frame/reg-sub
+ :get-user
+ (fn [db _]
+   (:user db)))
