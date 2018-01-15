@@ -1,11 +1,11 @@
 (ns main.views.user
   (:require
    [reagent.core :as r]
-   [re-frame.core :as re-frame]
+   [re-frame.core :as rf]
    [material-ui.core :as ui]))
 
 (defn user-panel []
-  (fn []
+  (let [user (rf/subscribe [:get-user])]
+    (rf/dispatch [:set-title "Settings"])
     [ui/view
-     [ui/text "This is the Userx Page."]
-     [ui/view [ui/text "go to Home Page"]]]))
+     ]))
