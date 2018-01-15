@@ -40,7 +40,8 @@
 (defn add-message [db thread-id message]
   (let [thread @(re-frame/subscribe [:get-one :threads thread-id])
         messages (conj (:messages thread) message)
-        new-thread (assoc thread :messages messages)
+        new-thread (assoc thread :messages messages
+                          :last-message (:createdAt message))
         new-db (assoc-in db
                          [:threads thread-id]
                          new-thread)]

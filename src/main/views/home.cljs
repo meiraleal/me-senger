@@ -26,10 +26,17 @@
         :number-of-lines 2}]
       [ui/divider]])))
 
+(defn reorder-threads [threads]
+  (reverse
+   (sort-by
+    :last-message
+    threads)))
+
 (defn- start-thread [bot-id bot]
   (let [thread @(rf/subscribe [:get-one :threads bot-id])]
     (or thread
         {:bot-id (:key bot)
+         :last-message (js/Date.)
          :messages [{:_id 1
                      :text (:text bot)
                      :createdAt (js/Date.)}]})))
@@ -51,11 +58,12 @@
          bots)))
 
 (defn home-panel []
-  (let [threads (rf/subscribe [:get-all :threads])
+  (let [threads (reorder-threads @(rf/subscribe [:get-all :threads]))
         bots (rf/subscribe [:get-all :bots])]
+    (println threads)
     (rf/dispatch [:set-title "Hostel XYZ"])
     [ui/view {:style {:flex 1}}
-     [ui/flat-list {:data @threads
+     [ui/flat-list {:data threads
                     :render-item #(thread-fn %)}]
      [ui/action-button {:transition "speedDial"
                         :on-press (fn [btn]

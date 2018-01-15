@@ -37,11 +37,12 @@
                           "caipirinha" "Custa 10 reais."
                           "confirmar" "Pedido confirmado. Nosso atendente ira entregar em breve."}}}
    :threads {:recepcao {:bot-id :recepcao
+                        :last-message (js/Date.)
                         :messages [{:_id (.getTime (js/Date.))
                                     :text "Welcome to Hostel XYZ!"
                                     :createdAt (js/Date.)}]}}})
 
-(def db-name :dump-db-38)
+(def db-name :dump-db-40)
 
 (defn save-db [dump]
   (go
