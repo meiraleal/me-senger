@@ -26,16 +26,19 @@
         :number-of-lines 2}]
       [ui/divider]])))
 
-(defn- start-thread [bot]
-  {:bot-id (:key bot)
-   :messages [{:_id 1
-               :text (:text bot)
-               :createdAt (js/Date.)}]})
+(defn- start-thread [bot-id bot]
+  (let [thread @(rf/subscribe [:get-one :threads bot-id])]
+    (or thread
+        {:bot-id (:key bot)
+         :messages [{:_id 1
+                     :text (:text bot)
+                     :createdAt (js/Date.)}]})))
 
 (defn- open-thread [bot-id]
-  (let [bot @(rf/subscribe [:get-one :bots bot-id])]
+  (let [bot @(rf/subscribe [:get-one :bots bot-id])
+        thread (start-thread bot-id bot)]
     (if bot
-      (rf/dispatch [:open-thread (start-thread bot)]))))
+      (rf/dispatch [:open-thread thread]))))
 
 (defn- bot-actions [bots]
   (into []
@@ -55,5 +58,7 @@
      [ui/flat-list {:data @threads
                     :render-item #(thread-fn %)}]
      [ui/action-button {:transition "speedDial"
-                        :on-press #(open-thread (keyword %))
+                        :on-press (fn [btn]
+                                    (if (not (= (keyword btn) :main-button))
+                                      (open-thread (keyword btn))))
                         :actions (bot-actions @bots)}]]))
