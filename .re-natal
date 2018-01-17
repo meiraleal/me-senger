@@ -10,7 +10,7 @@
     "react-native-gifted-chat"
   ],
   "imageDirs": [
-    "assets/images"
+        "assets/images"        
   ],
   "platforms": {
     "ios": {

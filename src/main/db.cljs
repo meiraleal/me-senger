@@ -2,7 +2,10 @@
   (:require
    [re-frame.core :as re-frame]
    [glittershark.core-async-storage :refer [get-item set-item]]
-   [cljs.core.async :refer [<!]])
+   [cljs.core.async :refer [<!]]
+   [main.bots.coach :as coach]
+   [main.bots.diary :as diary]
+   [main.bots.fitness :as fitness])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (def initial-route {:panel :home-panel})
@@ -14,33 +17,16 @@
    :history [initial-route]
    :args nil
    :user nil
-   :bots {:recepcao {:name "Recepção"
-                     :icon "done"
-                     :text "Welcome to Hostel XYZ!"
-                     :avatar "./assets/images/image0.jpg"
-                     :replies {"checkin" "Ola hospede! Para fazer checkin, responda \"confirmar\"!"
-                               "checkout" "Obrigado pela estadia. Espero que tenha sido incrivel!"
-                               "confirmar" "Seja bem vindo."}}
-          :concierge {:name "Concierge"
-                      :icon "done"
-                      :text "What do you wanna do today?"
-                      :avatar "./assets/images/image1.jpg"
-                      :replies {"teste" "legal"}}
-          :bar {:name "Bar"
-                :text "Beer time?"
-                :icon "done"
-                :avatar "./assets/images/image3.jpg"
-                :replies {"teste" "legal"
-                          "cerveja" "Brahma, Heineken ou Bohemia?"
-                          "caipirinha" "Custa 10 reais."
-                          "confirmar" "Pedido confirmado. Nosso atendente ira entregar em breve."}}}
-   :threads {:recepcao {:bot-id :recepcao
+   :bots {:coach coach/bot
+          :diary diary/bot
+          :fitness fitness/bot}
+   :threads {:coach {:bot-id :coach
                         :last-message (js/Date.)
                         :messages [{:_id (.getTime (js/Date.))
-                                    :text "Welcome to Hostel XYZ!"
+                                    :text "Welcome to ME!Senger"
                                     :createdAt (js/Date.)}]}}})
 
-(def db-name :dump-db-44)
+(def db-name :dump-db-1)
 
 (defn save-db [dump]
   (go

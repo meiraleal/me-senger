@@ -6,10 +6,11 @@
 
 (defn header [title]
   (let [back-button (rf/subscribe [:back-button])]
-    [ui/app-bar
-     {:style {:container {:background-color (ui/color :blueGrey600)}}
-      :center-element title
-      :left-element (if @back-button "arrow-back" "search")
-      :right-element "settings"
-      :on-left-element-press #(rf/dispatch (if @back-button [:back-history] [:start-search]))
-      :on-right-element-press #(rf/dispatch [:set-active-route {:panel :settings-panel}])}]))
+    (if title
+      [ui/app-bar
+       {:style {:container {:background-color (ui/color :blueGrey600)}}
+        :center-element title
+        :left-element (if @back-button "arrow-back" "search")
+        :right-element "settings"
+        :on-left-element-press #(rf/dispatch (if @back-button [:back-history] [:start-search]))
+        :on-right-element-press #(rf/dispatch [:set-active-route {:panel :settings-panel}])}])))

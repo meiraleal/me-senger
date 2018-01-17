@@ -77,7 +77,7 @@
 (defn threads-panel []
   (let [threads (reorder-threads @(rf/subscribe [:get-all :threads]))
         bots (rf/subscribe [:get-all :bots])]
-    (rf/dispatch [:set-title "Hostel XYZ"])
+    (rf/dispatch [:set-title "Me!Senger"])
     [ui/view {:style {:flex 1}}
      [ui/flat-list {:data threads
                     :render-item #(thread-fn %)}]
